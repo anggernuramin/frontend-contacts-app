@@ -13,6 +13,13 @@ export default createRouter({
           path: '/about',
           component: () => import('./views/About.vue'),
         },
+        {
+          path: "/contact",
+          component: () => import("./views/Contact.vue")
+        }, {
+          path: '/:pathMatch(.*)*',
+          component: () => import("./views/NotFound.vue")
+        }
         
       ],
 })

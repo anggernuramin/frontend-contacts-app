@@ -5,15 +5,16 @@ import { fetchData } from '../../libs/fetchContacts';
 import HelloWorld from "../components/HelloWorld.vue";
 import Table from "../components/Table.vue";
 import Jumbotron from "../components/Jumbotron.vue";
+
 interface Contact {
     name: string
     email: string
     nohp: number
 }
 
-const laga = ref<Contact[]>([]); // Te
+const laga = ref<Contact[]>([]); 
 
-
+// akan di jalankan ketika component pertama kali  dimuat
 onMounted(async () => {
   try {
     const response = await fetchData();

@@ -43,8 +43,8 @@
       </div>
     </div>
   </header>
+  <!-- Semua component akan ada didlam main., ini karena diset router pada file main.ts -->
   <main>
-
     <router-view />
   </main>
  
