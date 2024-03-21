@@ -21,7 +21,7 @@
                 <router-link to="/">Home</router-link>
               </li>
               <li class="scroll-to-section">
-                <a href="/contact">Contacts</a>
+                <a href="/contacts">Contacts</a>
               </li>
               <li class="scroll-to-section">
                 <router-link to="/about">About</router-link>

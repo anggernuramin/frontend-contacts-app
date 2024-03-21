@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 // menggunakan vue composition Api
 import { Ref, onMounted, ref } from "vue";
-import { fetchData } from '../../libs/fetchContacts';
 import HelloWorld from "../components/HelloWorld.vue";
 import Table from "../components/Table.vue";
 import Jumbotron from "../components/Jumbotron.vue";
+import { fetchData } from "../libs/fetchContacts";
 
 interface Contact {
     name: string
@@ -50,4 +50,4 @@ onMounted(async () => {
     </section>
   </main>
   <HelloWorld msg="Vite + Vue" />
-</template>
+</template>../libs/fetchContacts
