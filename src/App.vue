@@ -1,10 +1,8 @@
 <script setup lang="ts">
-
-
 </script>
 
 <template>
-<header
+  <header
     class="header-area position-fixed header-sticky wow slideInDown"
     data-wow-duration="0.75s"
     data-wow-delay="0s"
@@ -14,7 +12,11 @@
         <div class="col-11 mx-auto">
           <nav class="main-nav">
             <a href="index.html" class="logo">
-              <img src="/assets/images/user.jpg" alt="User Angger" class="img-logo" />
+              <img
+                src="/assets/images/user.jpg"
+                alt="User Angger"
+                class="img-logo"
+              />
             </a>
             <ul class="nav">
               <li class="scroll-to-section">
@@ -27,7 +29,7 @@
                 <router-link to="/about">About</router-link>
               </li>
               <li class="scroll-to-section">
-                <a href="/cli">CLI</a>
+                <a href="/contacts/cli">CLI</a>
               </li>
               <li>
                 <div class="gradient-button">
@@ -44,10 +46,10 @@
     </div>
   </header>
   <!-- Semua component akan ada didlam main., ini karena diset router pada file main.ts -->
-  <main>
+  <div>
     <router-view />
-  </main>
- 
+  </div>
+
 </template>
 
 <style scoped></style>

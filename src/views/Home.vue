@@ -1,8 +1,10 @@
 <script lang="ts" setup>
 // menggunakan vue composition Api
 import {  onMounted, ref } from "vue";
-import HelloWorld from "../components/HelloWorld.vue";
+// import HelloWorld from "../components/HelloWorld.vue";
+import Services from "../components/Services.vue";
 import Table from "../components/Table.vue";
+import Footer from "../components/Footer.vue"
 import Jumbotron from "../components/Jumbotron.vue";
 import { fetchData } from "../libs/fetchContacts";
 
@@ -48,6 +50,8 @@ onMounted(async () => {
       </div>
       
     </section>
+    <Services />
+    <Footer />
   </main>
-  <HelloWorld msg="Vite + Vue" />
+  <!-- <HelloWorld msg="Vite + Vue" /> -->
 </template>
