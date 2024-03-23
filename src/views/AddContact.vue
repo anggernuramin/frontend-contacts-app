@@ -22,7 +22,8 @@ const addContact = async () => {
       });
       router.push("/contacts");
     } catch (error: any) {
-      errorMessage.value = error?.response?.data?.message;
+      errorMessage.value = error?.response?.data?.message
+      console.log("error",error?.response?.data?.messasge);
     }
   }
 };
@@ -36,7 +37,7 @@ const addContact = async () => {
           <ul v-if="typeof errorMessage != undefined" :class="errorMessage.length > 0 ? 'list-errors pt-5' : 'd-none'">
             <div class="alert alert-danger" role="alert">
               <li v-for="(item, index) in errorMessage" :key="index">
-                • {{ item?.message }}
+                • {{ item?.msg }}
               </li>
             </div>
           </ul>

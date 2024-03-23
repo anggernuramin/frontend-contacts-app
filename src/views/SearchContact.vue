@@ -1,6 +1,8 @@
 import { useRoute } from 'vue-router';
 <template>
-       <section class="container list-contact">
+    <h1>Search Page</h1>
+    <h1>Search query : {{ query }}</h1>
+    <section class="container list-contact">
     <div v-if="isError">
       <h1>{{ isError }}</h1>
     </div>
@@ -87,11 +89,11 @@ import { useRoute } from 'vue-router';
   </section>
 </template>
 <script lang="ts" setup>
-import { useRoute} from 'vue-router';
+import { useRoute } from 'vue-router';
 
 const route = useRoute()
 const query = route.query.q 
-import { onMounted, ref,watch } from "vue";
+import { onMounted, ref } from "vue";
 import axios from "axios";
 import { fetchData } from "../libs/fetchDetailContacts";
 import { useRouter } from "vue-router";
@@ -161,6 +163,7 @@ const handleSearchContact = async () => {
       search: querySearch.value
     })
     console.log("🚀 ~ handleSearchContact ~ response:", response)
+
     router.push(response?.data?.searchUrl)
   } catch (error) {
     console.log("🚀 ~ handleSearchContact ~ error:", error)
@@ -179,6 +182,7 @@ const showNotification = (message: string)  => {
 
 
 onMounted(async () => {
+  
   if(query){
     console.log("ada query");
     fetchContactSearch()
@@ -192,10 +196,5 @@ onMounted(async () => {
     console.log("query tidak ada");
   }
 });
-
-watch(query, async(newQuery,oldQuery) => {
-
-})
-
 
 </script>

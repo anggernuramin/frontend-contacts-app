@@ -30,7 +30,6 @@ const handleDeleteContact = async (id: any) => {
   }
 };
 const fetchDetailContact = async (id: string) => {
-  console.log(id);
 
   try {
     const response = await axios.get(
@@ -38,7 +37,7 @@ const fetchDetailContact = async (id: string) => {
     );
     contact.value = response?.data?.data;
   } catch (error: any) {
-    console.log("🚀 ~ fetchDetailContact ~ error:", error.message);
+    console.log("🚀 ~ fetchDetailContact ~ error:", error);
   }
 };
 
