@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { ref } from "vue";
 
 interface Contact {
   name: string;

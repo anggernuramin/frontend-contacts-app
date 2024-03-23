@@ -16,7 +16,7 @@ const route = useRoute();
 onMounted(async () => {
   try {
     const response = await axios.get(
-      `http://localhost:3000/contact/${route.params.id}`
+      `https://backend-contacts-apps.vercel.app/contact/${route.params.id}`
     );
     const data = await response?.data?.data;
 
@@ -35,7 +35,7 @@ onMounted(async () => {
 const errorMessage = ref<any>([]);
 const updateContact = async () => {
     try {
-        const response = await axios.put("http://localhost:3000/contact", {
+        const response = await axios.put("https://backend-contacts-apps.vercel.app/contact", {
             _id: route.params.id,
             oldname: dataContact.value.oldname,
             name: dataContact.value.name,

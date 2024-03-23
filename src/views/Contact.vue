@@ -1,6 +1,5 @@
-import { useRoute } from 'vue-router';
 <template>
-       <section class="container list-contact">
+  <section class="container list-contact">
     <div v-if="isError">
       <h1>{{ isError }}</h1>
     </div>
@@ -9,22 +8,36 @@ import { useRoute } from 'vue-router';
         <div class="d-flex justify-content-between my-3">
           <h1>List Contact</h1>
 
-
-          <form @submit.prevent="handleSearchContact" class="d-flex search" role="search">
-            <input class="" type="search" v-model="querySearch" name="search" placeholder="Search" aria-label="Search" />
+          <form
+            @submit.prevent="handleSearchContact"
+            class="d-flex search"
+            role="search"
+          >
+            <input
+              class=""
+              type="search"
+              v-model="querySearch"
+              name="search"
+              placeholder="Search"
+              aria-label="Search"
+            />
             <button class="button" type="submit">
               <i class="bi bi-search"></i>
             </button>
           </form>
         </div>
 
-        <div v-if="notification" id="notification" class="alert alert-success" role="alert">
+        <div
+          v-if="notification"
+          id="notification"
+          class="alert alert-success"
+          role="alert"
+        >
           {{ notification }}
         </div>
         <div v-if="isLoading">
           <h1>Loading....</h1>
         </div>
-
         <table v-if="contacts.length > 0" class="table">
           <thead>
             <tr>
@@ -45,19 +58,22 @@ import { useRoute } from 'vue-router';
               </td>
               <td class="d-flex gap-3 py-3">
                 <router-link :to="`/contacts/${item?._id}`">
-                  <span class="badge text-bg-primary bg-success d-flex gap-1"><i
-                      class="bi bi-info-circle"></i>Detail</span>
+                  <span class="badge text-bg-primary bg-success d-flex gap-1"
+                    ><i class="bi bi-info-circle"></i>Detail</span
+                  >
                 </router-link>
-                <!-- Mengoverride http method -->
-                <button @click="() => handleDeleteContact(item._id)">
+
+                <button class="border-0 bg-white" data-bs-toggle="modal" data-bs-target="#modalDelete" @click="() => selectIdDelete(item._id)" >
                   <span class="badge text-bg-primary bg-danger d-flex gap-1">
                     <i class="bi bi-trash3-fill"></i>
-                    Delete</span>
+                    Delete</span
+                  >
                 </button>
 
                 <router-link :to="`/contact/update/${item._id}`">
                   <span class="badge text-bg-primary bg-warning d-flex gap-1">
-                    <i class="bi bi-pencil-fill"></i>Update</span>
+                    <i class="bi bi-pencil-fill"></i>Update</span
+                  >
                 </router-link>
                 <!-- moda box confirm delete -->
               </td>
@@ -65,37 +81,84 @@ import { useRoute } from 'vue-router';
           </tbody>
         </table>
         <div v-else>
-            <h1>{{ alertContactEmpty }}</h1>
+          <h1>{{ alertContactEmpty }}</h1>
         </div>
 
-        <div v-if="contacts.length > 0" class="d-flex justify-content-end align-items-center gap-2">
-          <form action="/contact/download" method="post">
-            <select name="downloadFile" id="downloadFile">
-              <option value="Json" selected>Json</option>
-              <option value="Pdf">Pdf</option>
+        <div
+          v-if="contacts.length > 0"
+          class="d-flex justify-content-end align-items-center gap-2"
+        >
+          <form @submit.prevent="handleDownloadFile">
+            <select
+              v-model="selectedFileType"
+              name="downloadFile"
+              id="downloadFile"
+            >
+              <option value="json" selected>Json</option>
+              <!-- <option value="pdf">Pdf</option> -->
               <option value="csv">Csv</option>
             </select>
             <button type="submit">Unduh</button>
           </form>
         </div>
 
-          <div class="d-flex justify-content-end my-4 gradient-button">
-            <a href="/contact/add" class="btn btn-primary border-0">Add Contact</a>
-          </div>
+        <div class="d-flex justify-content-end my-4 gradient-button">
+          <a href="/contact/add" class="btn btn-primary border-0"
+            >Add Contact</a
+          >
+        </div>
       </div>
     </div>
   </section>
+
+  <!-- Modal box --><!-- Modal -->
+  <div
+    class="modal fade"
+    id="modalDelete"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Hapus Contact</h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-danger bg-danger"
+            data-bs-dismiss="modal"
+          >
+            No
+          </button>
+
+         
+            <button type="button" data-bs-dismiss="modal" @click="handleDeleteContact" class="btn btn-primary bg-primary">
+              Yes
+            </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 <script lang="ts" setup>
-import { useRoute} from 'vue-router';
+import { useRoute } from "vue-router";
 
-const route = useRoute()
-const query = route.query.q 
-import { onMounted, ref,watch } from "vue";
+const route = useRoute();
+import { onMounted, ref, watch } from "vue";
 import axios from "axios";
 import { fetchData } from "../libs/fetchDetailContacts";
 import { useRouter } from "vue-router";
 // import ModalBox from "../components/ModalBox.vue";
+import { downloadFile } from "../libs/downloadFile";
 
 // interface Notification {
 
@@ -108,22 +171,49 @@ interface Contact {
   email?: string;
   __v: number;
 }
-const router = useRouter()
+const router = useRouter();
 let querySearch = ref<string>("");
 let contacts = ref<Contact[]>([]);
-let alertContactEmpty = ref<string>("")
+let alertContactEmpty = ref<string>("");
 let isLoading = ref<boolean>(false);
 let isError = ref<any>("");
-let notification = ref<string>("")
+let notification = ref<string>("");
+const selectedFileType = ref<string>("json");
+const idDelete = ref<any>("");
 
-const handleDeleteContact = async (id: any) => {
+const handleDownloadFile = async () => {
+  try {
+    const response = await axios.post(
+      "https://backend-contacts-apps.vercel.app/contact/download",
+      {
+        typeFile: selectedFileType.value,
+      }
+    );
+
+    // Mengambil data dari respons
+    const data = response.data;
+
+    if (selectedFileType.value === "json") {
+      downloadFile(JSON.stringify(data), "json");
+    } else if (selectedFileType.value === "csv") {
+      downloadFile(data, "csv");
+    }
+  } catch (error) {
+    console.log("🚀 ~ handleDownloadFile ~ error:", error);
+  }
+};
+
+const selectIdDelete = (id: any) => {
+  return idDelete.value = id
+  
+}
+const handleDeleteContact = async () => {
   try {
     const response: any = await axios.delete(
-      `http://localhost:3000/contact?id=${id}`
+      `https://backend-contacts-apps.vercel.app/contact?id=${idDelete.value}`
     );
-    const messageNotif = await response?.data?.message
-    showNotification(messageNotif)
-
+    const messageNotif = await response?.data?.message;
+    showNotification(messageNotif);
 
     const { data, loading, error } = await fetchData();
     contacts.value = data;
@@ -138,64 +228,72 @@ const handleDeleteContact = async (id: any) => {
 };
 
 const fetchContactSearch = async () => {
-    try {
-        // q sesuai dengan search?q=
-           const response = await axios.get('http://localhost:3000/contact/search', {
-            params: {q: route.query.q}
-           });
-           contacts.value = await response?.data?.contacts
-           console.log("res",);
-           if(response?.data?.message){
-            alertContactEmpty.value = response?.data?.message
-           }
-           
-    } catch (error) {
-        console.log("🚀 ~ fetchContactSearch ~ error:", error)
-        
+  try {
+    // q sesuai dengan search?q=
+    const response = await axios.get(
+      "https://backend-contacts-apps.vercel.app/contact/search",
+      {
+        params: { q: route.query.q },
+      }
+    );
+    contacts.value = await response?.data?.contacts;
+    console.log("res");
+    if (response?.data?.message) {
+      alertContactEmpty.value = response?.data?.message;
     }
-}
+  } catch (error) {
+    console.log("🚀 ~ fetchContactSearch ~ error:", error);
+  }
+};
 
 const handleSearchContact = async () => {
   try {
-    const response = await axios.post(`http://localhost:3000/search/contact`, {
-      search: querySearch.value
-    })
-    console.log("🚀 ~ handleSearchContact ~ response:", response)
-    router.push(response?.data?.searchUrl)
+    const response = await axios.post(
+      `https://backend-contacts-apps.vercel.app/search/contact`,
+      {
+        search: querySearch.value,
+      }
+    );
+    console.log("🚀 ~ handleSearchContact ~ response:", response);
+    router.push(response?.data?.searchUrl);
   } catch (error) {
-    console.log("🚀 ~ handleSearchContact ~ error:", error)
-    
+    console.log("🚀 ~ handleSearchContact ~ error:", error);
   }
   console.log(querySearch.value);
-}
-const showNotification = (message: string)  => {
-  notification.value = message
+};
+
+const showNotification = (message: string) => {
+  notification.value = message;
   setTimeout(() => {
     // hapus notification setelah 3 detik
-  notification.value = ""
-  },3000)
-}
+    notification.value = "";
+  }, 3000);
+};
 
-
-
+// dijalankan ketika pertamakali diakses
 onMounted(async () => {
-  if(query){
-    console.log("ada query");
-    fetchContactSearch()
-  }else{
+  if (route.query.q) {
+    fetchContactSearch();
+  } else {
     const { data, loading, error } = await fetchData();
-  contacts.value = data;
-  isLoading.value = loading;
-  isError.value = error;
-  console.log(error);
-
-    console.log("query tidak ada");
+    contacts.value = data;
+    isLoading.value = loading;
+    isError.value = error;
+    console.log(error);
   }
 });
 
-watch(query, async(newQuery,oldQuery) => {
-
-})
-
-
+// Menggunakan watch untuk memantau perubahan pada route.query.q(jika ada perubahan maka akan dijalankan)
+watch(
+  () => route.query.q,
+  (newValue, oldValue) => {
+    console.log("🚀 ~ watch ~ oldValue:", oldValue);
+    console.log("🚀 ~ watch ~ newValue:", newValue);
+    console.log(newValue !== oldValue);
+    // new value akan mengambil nilai dari route.query.q(mengambil nilai query q=) dan oldValue akan mengambil nilai newValue yang lama,newValue akan mempunyai nilai yang berubah-ubah
+    if (newValue !== oldValue) {
+      fetchContactSearch();
+    }
+  }
+);
 </script>

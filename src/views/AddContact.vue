@@ -15,7 +15,7 @@ const errorMessage = ref<any>([]);
 const addContact = async () => {
   if (dataContact) {
     try {
-      await axios.post("http://localhost:3000/contact", {
+      await axios.post("https://backend-contacts-apps.vercel.app/contact", {
         name: dataContact.value.name,
         email: dataContact.value.email,
         nohp: dataContact.value.nohp,
