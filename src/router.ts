@@ -37,10 +37,7 @@ export default createRouter({
       path: "/contacts/:id",
       component: () => import("./views/DetailContact.vue"),
     },
-    {
-      path: "/about",
-      component: () => import("./views/About.vue"),
-    },
+   
 
     {
       path: "/:pathMatch(.*)*",

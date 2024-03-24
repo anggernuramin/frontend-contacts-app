@@ -1,4 +1,21 @@
 <script setup lang="ts">
+import { useRoute } from 'vue-router';
+import { watch, ref, onMounted } from 'vue';
+const route = useRoute()
+const currentUrl = ref<any>("")
+
+onMounted(() => {
+  currentUrl.value = route.path
+  console.log("🚀 ~ onMounted ~ value:", currentUrl.value)
+})
+
+watch(() => route.path, (newValue: any, oldValue: any) => {
+  if(newValue !== oldValue){
+    currentUrl.value = newValue
+  console.log("🚀 ~ onMounted ~ value:", currentUrl.value)
+
+  }
+})
 </script>
 
 <template>
@@ -20,16 +37,16 @@
             </a>
             <ul class="nav">
               <li class="scroll-to-section">
-                <router-link to="/">Home</router-link>
+                <router-link to="/" :class="currentUrl.value === '/' ? 'link-active ' : 'link-not-active ' ">Home</router-link>
               </li>
               <li class="scroll-to-section">
-                <a href="/contacts">Contacts</a>
+                <router-link to="/contacts" :class="currentUrl.value === '/contacts' ? 'link-active' : 'link-not-active' ">Contacts</router-link>
               </li>
               <li class="scroll-to-section">
-                <router-link to="/about">About</router-link>
+                <router-link to="/about" :class="currentUrl.value === '/about' ? 'link-active' : 'link-not-active' ">About</router-link>
               </li>
               <li class="scroll-to-section">
-                <a href="/contacts/cli">CLI</a>
+                <router-link to="/contacts/cli" :class="currentUrl.value === '/contacts/cli' ? 'link-active' : 'link-not-active' ">CLI</router-link>
               </li>
               <li>
                 <div class="gradient-button">
@@ -46,7 +63,7 @@
     </div>
   </header>
   <!-- Semua component akan ada didlam main., ini karena diset router pada file main.ts -->
-  <div>
+  <div class="main">
     <router-view />
   </div>
 
