@@ -1,12 +1,12 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
-interface ApiResponse<T = any> {
-  data: T; // Data yang diterima dari respons HTTP
-  status: number | string; // Kode status HTTP (misalnya: 200, 404, dll.)
-  statusText: string; // Pesan status HTTP (misalnya: "OK", "Not Found", dll.)
-  headers: any; // Header respons HTTP
-  config: AxiosRequestConfig; // Konfigurasi yang digunakan untuk melakukan permintaan HTTP
-  request?: any; // Informasi tentang permintaan HTTP yang dilakukan
-}
+import axios  from "axios";
+// interface ApiResponse<T = any> {
+//   data: T; // Data yang diterima dari respons HTTP
+//   status: number | string; // Kode status HTTP (misalnya: 200, 404, dll.)
+//   statusText: string; // Pesan status HTTP (misalnya: "OK", "Not Found", dll.)
+//   headers: any; // Header respons HTTP
+//   config: AxiosRequestConfig; // Konfigurasi yang digunakan untuk melakukan permintaan HTTP
+//   request?: any; // Informasi tentang permintaan HTTP yang dilakukan
+// }
 interface Contact {
   _id: string;
   name: string;
