@@ -16,43 +16,43 @@ const route = useRoute();
 onMounted(async () => {
   try {
     const response = await axios.get(
-      `https://backend-contacts-apps.vercel.app/contact/${route.params.id}`
+      `${import.meta.env.VITE_VUE_APP_API_BASE}contact/${route.params.id}`
     );
     const data = await response?.data?.data;
 
     if (data) {
       dataContact.value.name = data?.name;
-      dataContact.value.oldname = data?.name
+      dataContact.value.oldname = data?.name;
       dataContact.value.email = data?.email;
       dataContact.value.nohp = data?.nohp;
     }
-
-
   } catch (error) {
     console.log("🚀 ~ onMounted ~ error:", error);
   }
 });
 const errorMessage = ref<any>([]);
 const updateContact = async () => {
-    try {
-        const response = await axios.put("https://backend-contacts-apps.vercel.app/contact", {
-            _id: route.params.id,
-            oldname: dataContact.value.oldname,
-            name: dataContact.value.name,
-            email: dataContact.value.email,
-            nohp: dataContact.value.nohp,
-        })
-        console.log("🚀 ~ updateContact ~ response:", response)
-       router.push("/contacts")
-    } catch (error: any) {
-        errorMessage.value = error?.response?.data?.message
-        console.log("🚀 ~ updateContact ~ error:", error)
-        
-    }
-}
+  try {
+    const response = await axios.put(
+      `${import.meta.env.VITE_VUE_APP_API_BASE}contact`,
+      {
+        _id: route.params.id,
+        oldname: dataContact.value.oldname,
+        name: dataContact.value.name,
+        email: dataContact.value.email,
+        nohp: dataContact.value.nohp,
+      }
+    );
+    console.log("🚀 ~ updateContact ~ response:", response);
+    router.push("/contacts");
+  } catch (error: any) {
+    errorMessage.value = error?.response?.data?.message;
+    console.log("🚀 ~ updateContact ~ error:", error);
+  }
+};
 </script>
 <template>
-  <section class="home-contact">
+  <section class="home-contact wrapper-update-contact">
     <div class="row">
       <div class="col-11 col-lg-6 mx-auto">
         <h2 class="mb-3">Form Update Contact</h2>
@@ -69,7 +69,7 @@ const updateContact = async () => {
         </ul>
 
         <form @submit.prevent="updateContact">
-            <input type="text" name="oldname" v-model="dataContact.oldname" />
+          <input type="hidden" name="oldname" v-model="dataContact.oldname" />
           <div class="mb-3">
             <label for="name" class="form-label">Name</label>
             <input

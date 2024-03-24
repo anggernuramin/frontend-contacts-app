@@ -29,6 +29,9 @@
 .home-contact{
    padding-top: 0px;
 }
+.wrapper-add-contact,.wrapper-update-contact{
+    padding-top: 100px;
+}
 .home-contact h2,.home-contact p{
     text-align: center;
 }

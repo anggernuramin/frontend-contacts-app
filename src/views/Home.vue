@@ -1,29 +1,30 @@
 <script lang="ts" setup>
 // menggunakan vue composition Api
-import {  onMounted, ref } from "vue";
-// import HelloWorld from "../components/HelloWorld.vue";
+import { onMounted, ref } from "vue";
 import Services from "../components/Services.vue";
 import Table from "../components/Table.vue";
 import Footer from "../components/Footer.vue"
 import Jumbotron from "../components/Jumbotron.vue";
-import { fetchData } from "../libs/fetchContacts";
+import { fetchDataContacts } from '../libs/fetchDataContacts';
 
 interface Contact {
-    name: string
-    email: string
-    nohp: number
+  _id: string;
+  name: string;
+  nohp: number | string;
+  email?: string;
+  __v: number;
 }
-
-const laga = ref<Contact[]>([]); 
+let contacts = ref<Contact[]>([]);
+let isLoading = ref<boolean>(false);
+let isError = ref<any>("");
 
 // akan di jalankan ketika component pertama kali  dimuat
 onMounted(async () => {
   try {
-    const response = await fetchData();
-    laga.value = response.data; // Isi variabel laga dengan hasil pemanggilan fetchData
-    laga.value.map((item) => {
-      Number(item.nohp); // Membuat nomor handphone menjadi tipe data number
-    })
+    const { data, loading, error } = await fetchDataContacts();
+    contacts.value = data;
+    isLoading.value = loading;
+    isError.value = error;
   } catch (err) {
     console.error('Failed to fetch data:', err);
   }
@@ -32,7 +33,7 @@ onMounted(async () => {
 </script>
 
 <template>
-     <main class="wrapper-main">
+  <main class="wrapper-main">
     <Jumbotron />
     <section class="container home-contact">
       <div class="row">
@@ -45,13 +46,12 @@ onMounted(async () => {
             it easier to navigate the list and find specific contacts quickly.
           </p>
 
-          <Table :data="laga" />
+          <Table :data="contacts" />
         </div>
       </div>
-      
+
     </section>
     <Services />
     <Footer />
   </main>
-  <!-- <HelloWorld msg="Vite + Vue" /> -->
 </template>

@@ -1,9 +1,11 @@
 <script lang="ts" setup>
 
 interface Contact {
+  _id: string;
   name: string;
-  email: string;
-  nohp: number;
+  nohp: number | string;
+  email?: string;
+  __v?: number;
 }
 
 defineProps<{ data: Contact[] }>();
