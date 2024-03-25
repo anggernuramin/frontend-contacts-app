@@ -3,7 +3,6 @@
 import { onMounted, ref } from "vue";
 import Services from "../components/Services.vue";
 import Table from "../components/Table.vue";
-import Footer from "../components/Footer.vue"
 import Jumbotron from "../components/Jumbotron.vue";
 import { fetchDataContacts } from '../libs/fetchDataContacts';
 
@@ -33,7 +32,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <main class="wrapper-main">
+  <section class="wrapper-main">
     <Jumbotron />
     <section class="container home-contact">
       <div class="row">
@@ -52,6 +51,5 @@ onMounted(async () => {
 
     </section>
     <Services />
-    <Footer />
-  </main>
+  </section>
 </template>

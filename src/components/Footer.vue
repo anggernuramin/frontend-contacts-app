@@ -1,6 +1,6 @@
 <template>
     
-<footer id="newsletter">
+<footer id="newsletter" >
     <div class="container wrapper-footer">
       <div class="row">
         <div class="col-lg-8 offset-lg-2">

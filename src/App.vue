@@ -1,21 +1,24 @@
 <script setup lang="ts">
-import { useRoute } from 'vue-router';
-import { watch, ref, onMounted } from 'vue';
-const route = useRoute()
-const currentUrl = ref<any>("")
+import { useRoute } from "vue-router";
+import { watch, ref, onMounted } from "vue";
+import Footer from "./components/Footer.vue";
+const route = useRoute();
+const currentUrl = ref<any>("");
 
 onMounted(() => {
-  currentUrl.value = route.path
-  console.log("🚀 ~ onMounted ~ value:", currentUrl.value)
-})
+  currentUrl.value = route.path;
+  console.log("🚀 ~ onMounted ~ value:", currentUrl.value);
+});
 
-watch(() => route.path, (newValue: any, oldValue: any) => {
-  if(newValue !== oldValue){
-    currentUrl.value = newValue
-  console.log("🚀 ~ onMounted ~ value:", currentUrl.value)
-
+watch(
+  () => route.path,
+  (newValue: any, oldValue: any) => {
+    if (newValue !== oldValue) {
+      currentUrl.value = newValue;
+      console.log("🚀 ~ onMounted ~ value:", currentUrl.value);
+    }
   }
-})
+);
 </script>
 
 <template>
@@ -37,20 +40,53 @@ watch(() => route.path, (newValue: any, oldValue: any) => {
             </a>
             <ul class="nav">
               <li class="scroll-to-section">
-                <router-link to="/" :class="currentUrl.value === '/' ? 'link-active ' : 'link-not-active ' ">Home</router-link>
+                <router-link
+                  to="/"
+                  :class="
+                    currentUrl.value === '/'
+                      ? 'link-active '
+                      : 'link-not-active '
+                  "
+                  >Home</router-link
+                >
               </li>
               <li class="scroll-to-section">
-                <router-link to="/contacts" :class="currentUrl.value === '/contacts' ? 'link-active' : 'link-not-active' ">Contacts</router-link>
+                <router-link
+                  to="/about"
+                  :class="
+                    currentUrl.value === '/about'
+                      ? 'link-active'
+                      : 'link-not-active'
+                  "
+                  >About</router-link
+                >
               </li>
               <li class="scroll-to-section">
-                <router-link to="/about" :class="currentUrl.value === '/about' ? 'link-active' : 'link-not-active' ">About</router-link>
+                <router-link
+                  to="/contacts"
+                  :class="
+                    currentUrl.value === '/contacts'
+                      ? 'link-active'
+                      : 'link-not-active'
+                  "
+                  >Contacts</router-link
+                >
               </li>
+
               <li class="scroll-to-section">
-                <router-link to="/contacts/cli" :class="currentUrl.value === '/contacts/cli' ? 'link-active' : 'link-not-active' ">CLI</router-link>
+                <router-link
+                  to="/contacts/cli"
+                  :class="
+                    currentUrl.value === '/contacts/cli'
+                      ? 'link-active'
+                      : 'link-not-active'
+                  "
+                  >CLI</router-link
+                >
               </li>
               <li>
                 <div class="gradient-button">
-                  <a id="modal_trigger" href="/contact">Create Contacts</a>
+                  <a id="modal_trigger" href="/contacts">Create Contacts</a>
                 </div>
               </li>
             </ul>
@@ -63,10 +99,10 @@ watch(() => route.path, (newValue: any, oldValue: any) => {
     </div>
   </header>
   <!-- Semua component akan ada didlam main., ini karena diset router pada file main.ts -->
-  <div class="main">
+  <main class="">
     <router-view />
-  </div>
-
+  </main>
+  <Footer />
 </template>
 
 <style scoped></style>
