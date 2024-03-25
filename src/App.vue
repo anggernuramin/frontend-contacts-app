@@ -3,11 +3,28 @@ import { useRoute } from "vue-router";
 import { watch, ref, onMounted } from "vue";
 import Footer from "./components/Footer.vue";
 const route = useRoute();
-const currentUrl = ref<any>("");
+const currentUrl = ref<any>(route.path);
+
+const activeClassName: string = "text-primary"
+const defaultClassName: string = "text-dark"
+
+let pageHome: any = "";
+let pageAbout: any = "";
+let pageContact: any = "";
+let pageCli: any = "";
+
+const updatePageClasses = () => {
+  pageHome = currentUrl.value === "/" ? activeClassName : defaultClassName;
+  pageAbout = currentUrl.value === "/" ? activeClassName : defaultClassName;
+  pageContact = currentUrl.value === "/contacts" ? activeClassName : defaultClassName;
+  pageCli = currentUrl.value === "/contacts/cli" ? activeClassName : defaultClassName;
+}
 
 onMounted(() => {
   currentUrl.value = route.path;
-  console.log("🚀 ~ onMounted ~ value:", currentUrl.value);
+  updatePageClasses()
+  
+
 });
 
 watch(
@@ -15,7 +32,8 @@ watch(
   (newValue: any, oldValue: any) => {
     if (newValue !== oldValue) {
       currentUrl.value = newValue;
-      console.log("🚀 ~ onMounted ~ value:", currentUrl.value);
+      updatePageClasses()
+      // update path sesuai dengan page yang sedang dibuka (memantau ketika ada peubahan maka value dari currentUrl akan berubah)
     }
   }
 );
@@ -40,23 +58,13 @@ watch(
             </a>
             <ul class="nav">
               <li class="scroll-to-section">
-                <router-link
-                  to="/"
-                  :class="
-                    currentUrl.value === '/'
-                      ? 'link-active '
-                      : 'link-not-active '
-                  "
-                  >Home</router-link
-                >
+                <router-link to="/" :class="pageHome">Home</router-link>
               </li>
               <li class="scroll-to-section">
                 <router-link
                   to="/about"
                   :class="
-                    currentUrl.value === '/about'
-                      ? 'link-active'
-                      : 'link-not-active'
+                   pageAbout
                   "
                   >About</router-link
                 >
@@ -65,9 +73,7 @@ watch(
                 <router-link
                   to="/contacts"
                   :class="
-                    currentUrl.value === '/contacts'
-                      ? 'link-active'
-                      : 'link-not-active'
+                    pageContact
                   "
                   >Contacts</router-link
                 >
@@ -77,9 +83,7 @@ watch(
                 <router-link
                   to="/contacts/cli"
                   :class="
-                    currentUrl.value === '/contacts/cli'
-                      ? 'link-active'
-                      : 'link-not-active'
+                    pageCli
                   "
                   >CLI</router-link
                 >

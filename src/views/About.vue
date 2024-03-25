@@ -45,7 +45,7 @@
                 productivity with our easy-to-use download functionality.
               </p>
               <div class="gradient-button">
-                <a href="#">Show Code</a>
+                <a href="https://github.com/anggernuramin/frontend-contacts-app" target="_blank">Show Code</a>
               </div>
               <span class="description-aboutCode"
                 >*I made this project open source, if you like, please

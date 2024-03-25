@@ -19,12 +19,13 @@
     padding: 0px 20px 0px 10px;
 }
 
-/* .link-active{
-    color: #4b8ef1;
+.router-link-active{
+    color: #4b8ef1 !important;
 }
-.link-active{
-    color: #4b8ef1;
-} */
+.text-not-active{
+    color: #2a2a2a !important;
+
+}
 .dropdown-file{
     border-radius: 40px;
     border: 1px solid #4b8ef1;
