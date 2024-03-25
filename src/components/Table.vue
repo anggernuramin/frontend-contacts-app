@@ -12,7 +12,7 @@ defineProps<{ data: Contact[] }>();
 </script>
 
 <template>
-  <table class="table">
+  <table class="table wrapper-table">
     <thead>
       <tr>
         <th scope="col">No</th>

@@ -4,41 +4,26 @@
       <h1>{{ isError }}</h1>
     </div>
     <div v-else class="row">
-      <div class="col-11 col-lg-12 mx-auto wrapper-contact">
-        <div class="d-flex justify-content-between my-3">
+      <div class="col-10 col-lg-12 mx-auto wrapper-contact">
+        <div class="wrapper-header-contact d-flex justify-content-between my-3">
           <h1>List Contact</h1>
 
-          <form
-            @submit.prevent="handleSearchContact"
-            class="d-flex search"
-            role="search"
-          >
-            <input
-              class=""
-              type="search"
-              v-model="querySearch"
-              name="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
+          <form @submit.prevent="handleSearchContact" class="d-flex search" role="search">
+            <input class="" type="search" v-model="querySearch" name="search" placeholder="Search"
+              aria-label="Search" />
             <button class="button" type="submit">
               <i class="bi bi-search"></i>
             </button>
           </form>
         </div>
 
-        <div
-          v-if="notification"
-          id="notification"
-          class="alert alert-success"
-          role="alert"
-        >
+        <div v-if="notification" id="notification" class="alert alert-success" role="alert">
           {{ notification }}
         </div>
         <div v-if="isLoading">
           <h1>Loading....</h1>
         </div>
-        <table v-if="contacts.length > 0" class="table">
+        <table v-if="contacts.length > 0" class="table wrapper-table">
           <thead>
             <tr>
               <th scope="col">No</th>
@@ -58,27 +43,20 @@
               </td>
               <td class="d-flex gap-3 py-3">
                 <router-link :to="`/contacts/${item?._id}`">
-                  <span class="badge text-bg-primary bg-success d-flex gap-1"
-                    ><i class="bi bi-info-circle"></i>Detail</span
-                  >
+                  <span class="badge text-bg-primary bg-success d-flex gap-1"><i
+                      class="bi bi-info-circle"></i>Detail</span>
                 </router-link>
 
-                <button
-                  class="border-0 bg-white"
-                  data-bs-toggle="modal"
-                  data-bs-target="#modalDelete"
-                  @click="() => selectIdDelete(item._id)"
-                >
+                <button class="border-0 bg-white" data-bs-toggle="modal" data-bs-target="#modalDelete"
+                  @click="() => selectIdDelete(item._id)">
                   <span class="badge text-bg-primary bg-danger d-flex gap-1">
                     <i class="bi bi-trash3-fill"></i>
-                    Delete</span
-                  >
+                    Delete</span>
                 </button>
 
                 <router-link :to="`/contact/update/${item._id}`">
                   <span class="badge text-bg-primary bg-warning d-flex gap-1">
-                    <i class="bi bi-pencil-fill"></i>Update</span
-                  >
+                    <i class="bi bi-pencil-fill"></i>Update</span>
                 </router-link>
                 <!-- moda box confirm delete -->
               </td>
@@ -86,76 +64,44 @@
           </tbody>
         </table>
         <div v-else>
-          <h1>{{ alertContactEmpty }}</h1>
+          <h3 class="fs-5 test-warning">{{ alertContactEmpty }}</h3>
         </div>
 
-        <div class="d-flex justify-content-end align-items-center gap-3">
+        <div class="wrapper-header-footer d-flex justify-content-end align-items-center gap-3">
+          <div v-if="contacts.length > 0" class="  d-flex justify-content-end align-items-center gap-2">
+            <form @submit.prevent="handleDownloadFile" class="dropdown-file">
+              <select v-model="selectedFileType" name="downloadFile" id="downloadFile" class="select-file">
+                <option value="json" selected>Json</option>
+                <!-- <option value="pdf">Pdf</option> -->
+                <option value="csv">Csv</option>
+              </select>
+              <button class="button-file" type="submit">Download</button>
+            </form>
+          </div>
 
-        <div
-          v-if="contacts.length > 0"
-          class="d-flex justify-content-end align-items-center gap-2"
-        >
-          <form @submit.prevent="handleDownloadFile" class="dropdown-file">
-            <select
-              v-model="selectedFileType"
-              name="downloadFile"
-              id="downloadFile"
-              class="select-file"
-            >
-              <option value="json" selected>Json</option>
-              <!-- <option value="pdf">Pdf</option> -->
-              <option value="csv">Csv</option>
-            </select>
-            <button class="button-file" type="submit">Unduh</button>
-          </form>
+          <div class="btn-add d-flex justify-content-end my-4 ">
+            <a href="/contact/add" class="btn-default">Add Contact</a>
+          </div>
         </div>
-
-        <div class="d-flex justify-content-end my-4 gradient-button">
-          <a href="/contact/add" class="btn btn-primary border-0"
-            >Add Contact</a
-          >
-        </div>
-      </div>
-
       </div>
     </div>
   </section>
 
   <!-- Modal box --><!-- Modal -->
-  <div
-    class="modal fade"
-    id="modalDelete"
-    tabindex="-1"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true"
-  >
+  <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Hapus Contact</h1>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Contact</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
         <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-danger bg-danger"
-            data-bs-dismiss="modal"
-          >
+          <button type="button" class="btn-default bg-danger" data-bs-dismiss="modal">
             No
           </button>
 
-          <button
-            type="button"
-            data-bs-dismiss="modal"
-            @click="handleDeleteContact"
-            class="btn btn-primary bg-primary"
-          >
+          <button type="button" data-bs-dismiss="modal" @click="handleDeleteContact" class="btn-default">
             Yes
           </button>
         </div>
@@ -167,8 +113,8 @@
 import { useRoute } from "vue-router";
 
 const route = useRoute();
-import { onMounted, ref, watch } from "vue";
 import axios from "axios";
+import { onMounted, ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import { downloadFile } from "../libs/downloadFile";
 import { fetchDataContacts } from "../libs/fetchDataContacts";

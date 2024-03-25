@@ -54,7 +54,7 @@ const updateContact = async () => {
 <template>
   <section class="home-contact wrapper-update-contact">
     <div class="row">
-      <div class="col-11 col-lg-6 mx-auto">
+      <div class="col-10 col-lg-6 mx-auto">
         <h2 class="mb-3">Form Update Contact</h2>
         <!-- Menampilkan error jika ada -->
         <ul
@@ -107,11 +107,11 @@ const updateContact = async () => {
           </div>
           <div class="mt-4 d-flex gap-3 justify-content-end">
             <a href="/contacts">
-              <button type="button" class="btn btn-danger bg-danger">
+              <button type="button" class="btn-default bg-danger">
                 Cancel
               </button>
             </a>
-            <button type="submit" class="btn btn-primary">Update</button>
+            <button type="submit" class="btn-default">Update</button>
           </div>
         </form>
       </div>

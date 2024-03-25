@@ -74,8 +74,8 @@ onMounted(async () => {
 
         <div class="modal-footer">
           <button
+          class="btn-default bg-danger"
             type="button"
-            class="btn btn-danger bg-danger"
             data-bs-dismiss="modal"
           >
             No
@@ -85,7 +85,8 @@ onMounted(async () => {
             type="button"
             data-bs-dismiss="modal"
             @click="handleDeleteContact"
-            class="btn btn-primary bg-primary"
+            class="btn-default "
+
           >
             Yes
           </button>
@@ -93,10 +94,10 @@ onMounted(async () => {
       </div>
     </div>
   </div>
-  <div class="row pt-5">
-    <div v-if="contact" class="col-11 col-lg-9 mx-auto pt-5">
+  <div class="row  wrapper-detail">
+    <div v-if="contact" class="col-10  col-lg-9 mx-auto pt-5">
       <h2 class="mb-2">Detail Contact</h2>
-      <table class="table">
+      <table class="table wrapper-table">
         <thead>
           <tr>
             <th scope="col">Name</th>
@@ -135,8 +136,10 @@ onMounted(async () => {
           </tr>
         </tbody>
       </table>
+      <div class="d-flex justify-content-end">
 
-      <a href="/contacts" class="card-link">Back</a>
+        <a href="/contacts" class="card-link btn-default"><i class="bi bi-arrow-left me-3 fs-6"></i>Back</a>
+      </div>
     </div>
 
     <div v-else>

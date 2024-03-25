@@ -31,7 +31,7 @@ const addContact = async () => {
 <template>
   <section class="home-contact wrapper-add-contact">
     <div class="row">
-      <div class="col-11 col-lg-6 mx-auto">
+      <div class="col-10 col-lg-6 mx-auto">
         <h2 class="mb-3">Form Add Contact</h2>
         <!-- Menampilkan error jika ada -->
         <ul v-if="typeof errorMessage != undefined" :class="errorMessage.length > 0 ? 'list-errors pt-5' : 'd-none'">
@@ -60,11 +60,11 @@ const addContact = async () => {
           </div>
           <div class="mt-4 d-flex gap-3 justify-content-end">
             <a href="/contacts">
-              <button type="button" class="btn btn-danger bg-danger">
+              <button type="button" class="btn-default bg-danger">
                 Cancel
               </button>
             </a>
-            <button type="submit" class="btn btn-primary">Add</button>
+            <button type="submit" class="btn-primary">Add</button>
           </div>
         </form>
       </div>

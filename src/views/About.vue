@@ -15,25 +15,25 @@
           <div class="row">
             <div class="col-lg-6">
               <div class="box-item">
-                <h4>CRUD</h4>
+                <h4 class="fs-6">CRUD</h4>
                 <p>Contact control</p>
               </div>
             </div>
             <div class="col-lg-6">
               <div class="box-item">
-                <h4>Flexible</h4>
+                <h4 class="fs-6">Flexible</h4>
                 <p>Versatile hub</p>
               </div>
             </div>
             <div class="col-lg-6">
               <div class="box-item">
-                <h4>Easy</h4>
+                <h4 class="fs-6">Easy</h4>
                 <p>Simple solution</p>
               </div>
             </div>
             <div class="col-lg-6">
               <div class="box-item">
-                <h4>Download</h4>
+                <h4 class="fs-6">Download</h4>
                 <p>Quick access</p>
               </div>
             </div>
@@ -44,9 +44,7 @@
                 and convenience. Simplify your workflow and accelerate
                 productivity with our easy-to-use download functionality.
               </p>
-              <div class="gradient-button">
-                <a href="https://github.com/anggernuramin/frontend-contacts-app" target="_blank">Show Code</a>
-              </div>
+                <a href="https://github.com/anggernuramin/frontend-contacts-app" target="_blank" class="btn-default my-3">Show Code</a>
               <span class="description-aboutCode"
                 >*I made this project open source, if you like, please
                 contribute</span

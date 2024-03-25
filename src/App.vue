@@ -20,12 +20,24 @@ const updatePageClasses = () => {
   pageCli = currentUrl.value === "/contacts/cli" ? activeClassName : defaultClassName;
 }
 
+const showNav = ref<any>("")
+  const headerNav = ref<any>("")
+
 onMounted(() => {
   currentUrl.value = route.path;
   updatePageClasses()
-  
 
-});
+  showNav.value = document.querySelector(".menu-trigger")
+  headerNav.value = document.querySelector(".header-area .nav")
+
+  console.log("🚀 ~ onMounted ~ showNav:", headerNav.value)
+
+})
+const toggleNav = () => {
+  console.log("test");
+  showNav.value.classList.toggle("active");
+  headerNav.value.classList.toggle("active");
+}
 
 watch(
   () => route.path,
@@ -40,53 +52,31 @@ watch(
 </script>
 
 <template>
-  <header
-    class="header-area position-fixed header-sticky wow slideInDown"
-    data-wow-duration="0.75s"
-    data-wow-delay="0s"
-  >
+  <header class="header-area position-fixed header-sticky wow slideInDown" data-wow-duration="0.75s"
+    data-wow-delay="0s">
     <div class="container">
       <div class="row">
         <div class="col-11 mx-auto">
           <nav class="main-nav">
             <a href="index.html" class="logo">
-              <img
-                src="/assets/images/user.jpg"
-                alt="User Angger"
-                class="img-logo"
-              />
+              <img src="/assets/images/user.jpg" alt="User Angger" class="img-logo" />
             </a>
             <ul class="nav">
               <li class="scroll-to-section">
                 <router-link to="/" :class="pageHome">Home</router-link>
               </li>
               <li class="scroll-to-section">
-                <router-link
-                  to="/about"
-                  :class="
-                   pageAbout
-                  "
-                  >About</router-link
-                >
+                <router-link to="/about" :class="pageAbout
+                  ">About</router-link>
               </li>
               <li class="scroll-to-section">
-                <router-link
-                  to="/contacts"
-                  :class="
-                    pageContact
-                  "
-                  >Contacts</router-link
-                >
+                <router-link to="/contacts" :class="pageContact
+                  ">Contacts</router-link>
               </li>
 
               <li class="scroll-to-section">
-                <router-link
-                  to="/contacts/cli"
-                  :class="
-                    pageCli
-                  "
-                  >CLI</router-link
-                >
+                <router-link to="/contacts/cli" :class="pageCli
+                  ">CLI</router-link>
               </li>
               <li>
                 <div class="gradient-button">
@@ -94,7 +84,7 @@ watch(
                 </div>
               </li>
             </ul>
-            <a class="menu-trigger">
+            <a @click.prevent="toggleNav" class="menu-trigger">
               <span>Menu</span>
             </a>
           </nav>
